@@ -1,0 +1,271 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Spring基础 | 鹏鹏的博客</title>
+  <meta name="author" content="鹏">
+  
+  <meta name="description" content="Sping之iocspring是一套容器组件，用来管理项目中的bean对象(MVC-DAO四层对象)。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Spring基础"/>
+  <meta property="og:site_name" content="鹏鹏的博客"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="鹏鹏的博客" type="application/atom+xml">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">鹏鹏的博客</a></h1>
+  <h2><a href="/">记录我的成长之路</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+
+      <li>aaaaaa</li>
+
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-Spring基础" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-07-31T14:07:00.000Z"><a href="/2020/07/31/Spring基础/">2020-07-31</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Spring基础</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h1 id="Sping之ioc"><a href="#Sping之ioc" class="headerlink" title="Sping之ioc"></a>Sping之ioc</h1><p>spring是一套容器组件，用来管理项目中的bean对象(MVC-DAO四层对象)。</p>
+<a id="more"></a>
+<p><strong>需要掌握的spring技术范畴：</strong><br>core:ioc container-resources-aop<br>test:TestContext框架,与junit的整合<br>mvc:springMVC<br>data:tranaction<br>intergration:remote，schedule，cache</p>
+<h2 id="spring作用："><a href="#spring作用：" class="headerlink" title="spring作用："></a>spring作用：</h2><p>spring是一套容器组件，用来管理项目中的bean对象(MVC-DAO四层对象)。</p>
+<p><strong>为什么要进行bean对象的管理？</strong><br><font color="blue">解决层与层之间耦合问题</font>，层与层之间只依赖于抽象接口，不依赖于具体，下层变动，上层不动。<br>MVC-dao每层都加了接口，都是为了代码的扩展性。<br>要把具体的实现类的new的过程由我们自身来new，交给第三方的组件来new，把new出来的对象保存起来。在程序运行期间动态的给成员变量赋值。</p>
+<p><em>xml中使用方法</em></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--di注入</span></span><br><span class="line"><span class="comment">    set注入，实体类不允许出现new 所以对想创建的对象进行依赖关联，然后在ref中指向该对象的实例化，set注入依赖于此次bean的set方法，set必须有--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"eee"</span> <span class="attr">class</span>=<span class="string">"com.pq.entity.Ddddd"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"ones"</span> <span class="attr">ref</span>=<span class="string">"abc"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--构造器注入</span></span><br><span class="line"><span class="comment">    value和ref一组。构造器注入即根据有参构造来进行注入。当传的参数为简单类型时，指string，int啥的，后面跟value，直接給值注入</span></span><br><span class="line"><span class="comment">    当参数为对象时，后跟ref，指向此参数对象的bean的id，让他构造完再给你注入</span></span><br><span class="line"><span class="comment">    根据参数类型可写name，根据参数的名字去匹配</span></span><br><span class="line"><span class="comment">    type，根据参数的类型去匹配。写法为type=com.pq.entity.Ddddd，type=java.util.string</span></span><br><span class="line"><span class="comment">    index,根据参数的序号进行匹配，从0开始，即index=0，index=1--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"fff"</span> <span class="attr">class</span>=<span class="string">"com.pq.entity.Rrrrr"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">"str"</span> <span class="attr">value</span>=<span class="string">"qwe"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">"ddd"</span> <span class="attr">ref</span>=<span class="string">"eee"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--内部bean注入,基于set，一定要有set方法,旨在只用一次的注入，可理解为匿名内部类对象，</span></span><br><span class="line"><span class="comment">    当需要注入的东西只有他用的时候，写外面也没啥用，所以可以写在内部。不用写ref指向啥的，直接内部bean完自己用就行</span></span><br><span class="line"><span class="comment">    注意，可进行套娃内部bean--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"ggg"</span> <span class="attr">class</span>=<span class="string">"com.pq.entity.Ttttt"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"d6"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.pq.entity.Ddddd"</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--注解内容可放开，可以正常执行</span></span><br><span class="line"><span class="comment">                &lt;property name="ones"&gt;--&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!--&lt;bean class="com.pq.controller.OneServlet"&gt;&lt;/bean&gt;--&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--&lt;/property&gt;--&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="怎么去搭建spring环境"><a href="#怎么去搭建spring环境" class="headerlink" title="怎么去搭建spring环境"></a>怎么去搭建spring环境</h2><p>目前最新版：5.2.8</p>
+<ol>
+<li>加入spring的四个核心包：bean,context,core,expression</li>
+<li>加入spring依赖的日志接口包:apache-common-logging</li>
+<li>配置spring的xml配置文件.</li>
+<li>通过ClasspathXmlApplicationContext实现类来加载xml配置文件初始化spring容器。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//new方法时，加载xml，将xml的bean 实例化为对象(在此过程时会进行初始化，即走一遍实例的构造)存入ApplicationContext容器中</span></span><br><span class="line">    <span class="comment">//ClassPathXmlApplicationContext是ApplicationContext的实现类</span></span><br><span class="line">    <span class="comment">//此处加载xml文件时可加载多个。也可通过xml文件里的import标签，在本xml里导入另一个xml，一样用</span></span><br><span class="line">    ApplicationContext ac= <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"spring.xml"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="spring的核心对象"><a href="#spring的核心对象" class="headerlink" title="spring的核心对象"></a>spring的核心对象</h2><p>BeanFactory：加载本地的xml配置文件，把配置文件中配置的类实例化出来，保存。</p>
+<ol>
+<li>ApplicationContext:负责实例化，配置和组装Bean;通过<strong>动态代理</strong>，实现了AOP面向切面编程。<br>​         两个实现类：<br><font color="blue">ClasspathXMLApplicationContext</font>：加载的xml元数据。在ssm项目中使用。<br>​<font color="blue">AnnotationConfigApplicationContext</font>：加载的注解配置类元数据。在springBoot项目使用。</li>
+<li>WebApplicationContext:提供了对web上下文的支持，持有了ServletContext对象。</li>
+</ol>
+<h2 id="读取xml"><a href="#读取xml" class="headerlink" title="读取xml"></a>读取xml</h2><p>Dom4j读取xml文件。<br>Property读取property配置文件。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span> <span class="attr">resource</span>=<span class="string">"jdbc.properties"</span>&gt;</span><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="IOC控制反转的几种方法："><a href="#IOC控制反转的几种方法：" class="headerlink" title="IOC控制反转的几种方法："></a>IOC控制反转的几种方法：</h2><p>控制反转：原来自己创建bean对象，交由spring来管理bean。</p>
+<ul>
+<li><h3 id="bean标签"><a href="#bean标签" class="headerlink" title="bean标签"></a>bean标签</h3></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--这种可称为用构造函数实例化bean</span></span><br><span class="line"><span class="comment">    scope="singleton"为默认值，即在加载xml时创造实例，text中getbean两次，然后进行比较（==），值为true。即指向同一地址</span></span><br><span class="line"><span class="comment">    在单例模式时使用。可改成scope="prototype"，在获取原型时使用。在text中加载xml时不会创造实例，只有在getbean时才会创建实例</span></span><br><span class="line"><span class="comment">    在text中getbean两次，进行比较结果为false，即地址不同，相当于重新初始化了一次，应用场景不多</span></span><br><span class="line"><span class="comment">    init-method可指定在加载xml时执行的方法名，一般为初始方法，可加自己的逻辑。destroy-method指定销毁时执行的方法。这个不一定有用</span></span><br><span class="line"><span class="comment">    因为一般结束时都是直接暴力终止，代码已经停止运行</span></span><br><span class="line"><span class="comment">    lazyinit 延迟加载，默认为false,开启后getbean时才实例化对象，也适用于单例，应用场景在树形控件等可能会用到--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"bbc"</span> <span class="attr">class</span>=<span class="string">"com.pq.service.OneServiceImpl"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">“自定义名称”</span> <span class="attr">class</span>=<span class="string">"类名"</span> <span class="attr">scope</span>=<span class="string">"singleton|prototype"</span> <span class="attr">init-method</span>=<span class="string">"方法名"</span> <span class="attr">destory-method</span>=<span class="string">"方法名"</span> <span class="attr">lazy-init</span>=<span class="string">"true|false"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实体类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OneServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="title">OneServlet</span> <span class="params">()</span></span>&#123;System.out.println(<span class="string">"调用了oneservlet"</span>);&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> <span class="string">"wahahhaha"</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;System.out.println(<span class="string">"init方法执行"</span>);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//测试类</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    ApplicationContext ac= <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"spring.xml"</span>);</span><br><span class="line">    OneServlet bean = ac.getBean(OneServlet<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    System.out.println(bean.hello());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="静态工厂方法实例化bean"><a href="#静态工厂方法实例化bean" class="headerlink" title="静态工厂方法实例化bean"></a>静态工厂方法实例化bean</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//静态工厂，必须为static方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnimalFac</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Animal <span class="title">creatcat</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//进行自己的复杂逻辑操作</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Cat();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Animal <span class="title">creatbird</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Bird();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实体类</span></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bird</span> <span class="keyword">implements</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;System.out.println(<span class="string">"鸟儿在飞"</span>);&#125;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">implements</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;System.out.println(<span class="string">"猫在跑"</span>);&#125;&#125;</span><br><span class="line"><span class="comment">//测试类</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">            ApplicationContext ac= <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"spring.xml"</span>);</span><br><span class="line">            Animal bean1 = ac.getBean(Animal<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">            bean1.run();</span><br><span class="line">        <span class="comment">//此处见xml静态工厂4个测试方法</span></span><br><span class="line"><span class="comment">//        System.out.println(bean1);</span></span><br><span class="line"><span class="comment">//        Animal bean2 = ac.getBean(Bird.class);</span></span><br><span class="line"><span class="comment">//        bean2.run();</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--静态工厂写法，factory-method获取方法的返回值放入bean，text接收时，接收到返回值为cat，可以用cat接收，</span></span><br><span class="line"><span class="comment">也可用animal，animal好像更能解耦合</span></span><br><span class="line"><span class="comment">    当class指向静态工厂时，空厂里可进行对对象的复杂逻辑操作，并返回给你</span></span><br><span class="line"><span class="comment">    1.如果不写factory-method，则text时写AnimalFac.class，可进行常规化方法调用，但无法调用静态方法，接收类型也是AnimalFac</span></span><br><span class="line"><span class="comment">    2.如果写了factory-method，则text时写AnimalFac.class，会报错，盲猜是因为bean里面放的是cat对象，AnimalFac无法接收</span></span><br><span class="line"><span class="comment">    3.如果写了factory-method，则text时写animal,可正常运行，但下次正常使用bird bean时会报错说重复实例bean了，工厂理想状态是一个工厂生产一样物品</span></span><br><span class="line"><span class="comment">    4.**********************，********写cat，可正常运行，下次也可正常使用bird bean，但这样就失去了工厂的意义--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"aaa"</span> <span class="attr">class</span>=<span class="string">"com.pq.entity.AnimalFac"</span> <span class="attr">factory-method</span>=<span class="string">"creatcat"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;bean id="bbb" class="com.pq.entity.AnimalFac" factory-method="creatbird"&gt;&lt;/bean&gt;--&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><em>用处：用在对象的创建过程比较复杂，不是简单的new。比如：SqlSessionFactory对象</em></p>
+<ul>
+<li><h3 id="实例工厂方法实例化bean"><a href="#实例工厂方法实例化bean" class="headerlink" title="实例工厂方法实例化bean"></a>实例工厂方法实例化bean</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//非静态方法</span></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SqlSessionFactoryBean</span> </span>&#123;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">createFactory</span><span class="params">()</span></span>&#123;</span><br><span class="line">          <span class="comment">//获取sqlsession临时会话对象的操作，先获取一个流，然后资源加载此流，返回一个根据此资源建造的sqlsession对象</span></span><br><span class="line">          InputStream resourceAsStream =<span class="keyword">null</span>;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">              resourceAsStream = Resources.getResourceAsStream(<span class="string">"mybatis-config.xml"</span>);</span><br><span class="line">          &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">              e.printStackTrace();</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> SqlSessionFactoryBuilder().build(resourceAsStream);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--实例工厂写法</span></span><br><span class="line"><span class="comment">  就是类似与静态工厂的写法，两行可合作一行当成静态看，但工厂方法非static，感觉和静态工厂差不多，不如静态简单</span></span><br><span class="line"><span class="comment">  就是工厂无法直接调用方法，所以先把工厂bean出来（实例化一下），然后下一个factory-bean指向实例化的工厂id，</span></span><br><span class="line"><span class="comment">  然后factory-method指向实例化工厂的方法。类似于new个对象再调方法--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"ccc"</span> <span class="attr">class</span>=<span class="string">"com.pq.entity.SqlSessionFactoryBean"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"ddd"</span> <span class="attr">factory-bean</span>=<span class="string">"ccc"</span> <span class="attr">factory-method</span>=<span class="string">"createFactory"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="6-DI依赖注入的几种方法："><a href="#6-DI依赖注入的几种方法：" class="headerlink" title="6.DI依赖注入的几种方法："></a>6.DI依赖注入的几种方法：</h2><p>bean对象不是独立存在的，都有依赖关系。spring要在程序运行期间，动态的维护对象的依赖关系（赋值）</p>
+<ul>
+<li><p>基于set方法的注入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实体类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ddddd</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> OneServlet ones;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnes</span><span class="params">(OneServlet ones)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.ones = ones;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getddd</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"获得了set注入"</span>+ones.toString());</span><br><span class="line">        System.out.println(<span class="string">"ddddddddd"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--set注入，实体类不允许出现new 所以对想创建的对象进行依赖关联，然后在ref中指向该对象的实例化，</span></span><br><span class="line"><span class="comment">set注入依赖于此次bean对象的set方法，set必须有--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"eee"</span> <span class="attr">class</span>=<span class="string">"com.pq.entity.Ddddd"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"ones"</span> <span class="attr">ref</span>=<span class="string">"abc"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基于构造器注入</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rrrrr</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String str;</span><br><span class="line">    <span class="keyword">private</span> Ddddd ddd;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Rrrrr</span><span class="params">(String str, Ddddd ddd)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.str = str;</span><br><span class="line">        <span class="keyword">this</span>.ddd = ddd;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getrrr</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.str+<span class="string">"rrrrrrrrrrrr"</span>+<span class="keyword">this</span>.ddd);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--构造器注入</span></span><br><span class="line"><span class="comment">value和ref一组。构造器注入即根据有参构造来进行注入。当传的参数为简单类型时，指string，int啥的，后面跟value，直接給值注入</span></span><br><span class="line"><span class="comment">当参数为对象时，后跟ref，指向此参数对象的bean的id，让他构造完再给你注入</span></span><br><span class="line"><span class="comment">根据参数类型可写name，根据参数的名字去匹配</span></span><br><span class="line"><span class="comment">type，根据参数的类型去匹配。写法为type=com.pq.entity.Ddddd，type=java.util.string</span></span><br><span class="line"><span class="comment">index,根据参数的序号进行匹配，从0开始，即index=0，index=1--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"fff"</span> <span class="attr">class</span>=<span class="string">"com.pq.entity.Rrrrr"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">"str"</span> <span class="attr">value</span>=<span class="string">"qwe"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">"ddd"</span> <span class="attr">ref</span>=<span class="string">"eee"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>内部bean注入<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ttttt</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Ddddd d6;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setD6</span><span class="params">(Ddddd d6)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.d6 = d6;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getttt</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"tttt的内部bean方法"</span>+<span class="keyword">this</span>.d6);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--内部bean注入,基于set，一定要有set方法,旨在只用一次的注入，可理解为匿名内部类对象，</span></span><br><span class="line"><span class="comment">    当需要注入的东西只有他用的时候，写外面也没啥用，所以可以写在内部。不用写ref指向啥的，直接内部bean完自己用就行</span></span><br><span class="line"><span class="comment">    注意，可进行套娃内部bean--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"ggg"</span> <span class="attr">class</span>=<span class="string">"com.pq.entity.Ttttt"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"d6"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.pq.entity.Ddddd"</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--注解内容可放开，可以正常执行</span></span><br><span class="line"><span class="comment">                &lt;property name="ones"&gt;--&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!--&lt;bean class="com.pq.controller.OneServlet"&gt;&lt;/bean&gt;--&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--&lt;/property&gt;--&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="bean标签的常用属性"><a href="#bean标签的常用属性" class="headerlink" title="bean标签的常用属性"></a>bean标签的常用属性</h2><ul>
+<li>id：给bean命名,id必须唯一</li>
+<li>class：确定类的名称，类必须存在。</li>
+<li>scope:bean的范围，默认scope=”singleton单例”,可选prototype原型，request，session,application</li>
+<li>init-method:初始化方法，在DruidDataSource对象中，需要 init-method=”init” destroy-method=”close”</li>
+<li>destory-method:销毁方法。</li>
+<li>lazy-init:延迟加载。getBean的时候才初始化bean对象，也是单例</li>
+</ul>
+<p>重点掌握四个：id，class，init-method,destory-method四个属性。具体使用方法见代码。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>spring是个什么东西？是一个bean工厂，是一个bean的对象容器，通过ClasspathXMLApplicationContext来加载xml配置元数据文件初始化bean并装配bean的一个东东。<br>怎么去配置bean对象呢？通过bean标签，通过静态工厂返回值，通过实例工厂返回值；<br>怎么去装配bean对象呢？通过property标签进行set注入，通过constructor-arg标签进行构造器注入;</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/SpringMVC/">SpringMVC</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/学习分享-框架-ioc/">-学习分享 -框架 -ioc</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="https://pengqi1998.github.io/2020/07/31/Spring%E5%9F%BA%E7%A1%80/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="as_sitesearch" value="pengqi1998.github.io">
+  </form>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/SpringMVC/">SpringMVC</a><small>3</small></li>
+  
+    <li><a href="/categories/知识整合/">知识整合</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/学习分享-导航/">-学习分享 -导航</a><small>1</small></li>
+  
+    <li><a href="/tags/学习分享-框架-ioc/">-学习分享 -框架 -ioc</a><small>2</small></li>
+  
+    <li><a href="/tags/学习分享-框架-mvc/">-学习分享 -框架 -mvc</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 鹏
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
