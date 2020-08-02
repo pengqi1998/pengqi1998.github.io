@@ -22,20 +22,20 @@
     var CONFIG = {"hostname":"pengqi1998.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
   </script>
 
-  <meta name="description" content="Sping之aop">
+  <meta name="description" content="Sping之ioc与aop整合ioc与aop的整合">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第一篇blog">
-<meta property="og:url" content="https://pengqi1998.github.io/2020/07/26/Spring%E5%9F%BA%E7%A1%8002/index.html">
+<meta property="og:title" content="Spring基础02">
+<meta property="og:url" content="https://pengqi1998.github.io/2020/07/31/Spring%E5%9F%BA%E7%A1%8002/index.html">
 <meta property="og:site_name" content="鹏鹏的博客">
-<meta property="og:description" content="Sping之aop">
+<meta property="og:description" content="Sping之ioc与aop整合ioc与aop的整合">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-26T12:08:05.000Z">
-<meta property="article:modified_time" content="2020-08-02T10:24:01.251Z">
+<meta property="article:published_time" content="2020-07-31T14:08:00.000Z">
+<meta property="article:modified_time" content="2020-08-02T10:35:16.735Z">
 <meta property="article:author" content="鹏">
 <meta property="article:tag" content="-学习分享 -框架 -ioc">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://pengqi1998.github.io/2020/07/26/Spring%E5%9F%BA%E7%A1%8002/">
+<link rel="canonical" href="https://pengqi1998.github.io/2020/07/31/Spring%E5%9F%BA%E7%A1%8002/">
 
 
 <script class="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>第一篇blog | 鹏鹏的博客</title>
+  <title>Spring基础02 | 鹏鹏的博客</title>
   
 
 
@@ -210,7 +210,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Sping之aop"><span class="nav-number">1.</span> <span class="nav-text">Sping之aop</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于xml文件的容器配置："><span class="nav-number">1.1.</span> <span class="nav-text">基于xml文件的容器配置：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#properties文件加载"><span class="nav-number">1.2.</span> <span class="nav-text">properties文件加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现ioc的方式"><span class="nav-number">1.3.</span> <span class="nav-text">实现ioc的方式:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现di依赖注入的方式："><span class="nav-number">1.4.</span> <span class="nav-text">实现di依赖注入的方式：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number">1.5.</span> <span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于Java类的容器配置"><span class="nav-number">1.6.</span> <span class="nav-text">基于Java类的容器配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-test"><span class="nav-number">1.7.</span> <span class="nav-text">spring-test</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#spring-test-1"><span class="nav-number">1.7.1.</span> <span class="nav-text">spring-test:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#junit"><span class="nav-number">1.7.2.</span> <span class="nav-text">junit:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-AOP"><span class="nav-number">1.8.</span> <span class="nav-text">4.AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是aop："><span class="nav-number">1.8.0.1.</span> <span class="nav-text">什么是aop：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#aop能干什么："><span class="nav-number">1.8.0.2.</span> <span class="nav-text">aop能干什么：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#aop怎么实现"><span class="nav-number">1.8.0.3.</span> <span class="nav-text">aop怎么实现:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#aop中的几个概念："><span class="nav-number">1.8.0.4.</span> <span class="nav-text">aop中的几个概念：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#spring的aop是怎么实现"><span class="nav-number">1.8.0.5.</span> <span class="nav-text">spring的aop是怎么实现:</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Sping之ioc与aop整合"><span class="nav-number">1.</span> <span class="nav-text">Sping之ioc与aop整合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于xml文件的容器配置："><span class="nav-number">1.1.</span> <span class="nav-text">基于xml文件的容器配置：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#properties文件加载"><span class="nav-number">1.2.</span> <span class="nav-text">properties文件加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现ioc的方式"><span class="nav-number">1.3.</span> <span class="nav-text">实现ioc的方式:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现di依赖注入的方式："><span class="nav-number">1.4.</span> <span class="nav-text">实现di依赖注入的方式：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number">1.5.</span> <span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于Java类的容器配置"><span class="nav-number">1.6.</span> <span class="nav-text">基于Java类的容器配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-test"><span class="nav-number">1.7.</span> <span class="nav-text">spring-test</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#spring-test-1"><span class="nav-number">1.7.1.</span> <span class="nav-text">spring-test:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#junit"><span class="nav-number">1.7.2.</span> <span class="nav-text">junit:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AOP"><span class="nav-number">2.</span> <span class="nav-text">AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是aop："><span class="nav-number">2.0.0.1.</span> <span class="nav-text">什么是aop：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#aop能干什么："><span class="nav-number">2.0.0.2.</span> <span class="nav-text">aop能干什么：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#aop怎么实现"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">aop怎么实现:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#aop中的几个概念："><span class="nav-number">2.0.0.4.</span> <span class="nav-text">aop中的几个概念：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#spring的aop是怎么实现"><span class="nav-number">2.0.0.5.</span> <span class="nav-text">spring的aop是怎么实现:</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -226,7 +226,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -239,7 +239,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -297,7 +297,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://pengqi1998.github.io/2020/07/26/Spring%E5%9F%BA%E7%A1%8002/">
+    <link itemprop="mainEntityOfPage" href="https://pengqi1998.github.io/2020/07/31/Spring%E5%9F%BA%E7%A1%8002/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/mayun.jpg">
@@ -310,7 +310,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          第一篇blog
+          Spring基础02
         </h1>
 
         <div class="post-meta">
@@ -320,14 +320,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-07-26 20:08:05" itemprop="dateCreated datePublished" datetime="2020-07-26T20:08:05+08:00">2020-07-26</time>
+              <time title="创建时间：2020-07-31 22:08:00" itemprop="dateCreated datePublished" datetime="2020-07-31T22:08:00+08:00">2020-07-31</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-02 18:24:01" itemprop="dateModified" datetime="2020-08-02T18:24:01+08:00">2020-08-02</time>
+                <time title="修改时间：2020-08-02 18:35:16" itemprop="dateModified" datetime="2020-08-02T18:35:16+08:00">2020-08-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -335,7 +335,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">知识整合</span></a>
+                  <a href="/categories/SpringMVC/" itemprop="url" rel="index"><span itemprop="name">SpringMVC</span></a>
                 </span>
             </span>
 
@@ -357,7 +357,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Sping之aop"><a href="#Sping之aop" class="headerlink" title="Sping之aop"></a>Sping之aop</h1><a id="more"></a>
+        <h1 id="Sping之ioc与aop整合"><a href="#Sping之ioc与aop整合" class="headerlink" title="Sping之ioc与aop整合"></a>Sping之ioc与aop整合</h1><p>ioc与aop的整合</p>
+<a id="more"></a>
 <h2 id="基于xml文件的容器配置："><a href="#基于xml文件的容器配置：" class="headerlink" title="基于xml文件的容器配置："></a>基于xml文件的容器配置：</h2><p>一般是在ssm项目中使用。</p>
 <h2 id="properties文件加载"><a href="#properties文件加载" class="headerlink" title="properties文件加载"></a>properties文件加载</h2><p>用来加载类路径下的properties文件。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--此标签为使用property时需要的标签。且指定的是jar包中的类，无法通过直接注解加载</span></span><br><span class="line"><span class="comment">    location为配置文件,此处写法为相对路径写法 还可写 classpath：jdbc.properties，意为类下路径。还可带上*号，意为本地类路径下，包括jar包里面也找</span></span><br><span class="line"><span class="comment">    ignore-unresolvable为暂时忽略无法解析的key，默认为ture ，一般需要加上,当我们引入多个properties文件的时会用到--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:property-placeholder</span> <span class="attr">location</span>=<span class="string">"jdbc.properties"</span> <span class="attr">ignore-unresolvable</span>=<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">context:property-placeholder</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"jdbcjiazai"</span> <span class="attr">class</span>=<span class="string">"com.alibaba.druid.pool.DruidDataSource"</span> <span class="attr">init-method</span>=<span class="string">"init"</span> <span class="attr">destroy-method</span>=<span class="string">"close"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"$&#123;driver&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;url&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;user&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;password&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--注意，此处默认一般最大值为8，此处写超过8会发生错误，一般这个不用写--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;property name="initialSize" value="5"&gt;&lt;/property&gt;--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -400,7 +401,7 @@
 
 
 
-<h2 id="4-AOP"><a href="#4-AOP" class="headerlink" title="4.AOP"></a>4.AOP</h2><h4 id="什么是aop："><a href="#什么是aop：" class="headerlink" title="什么是aop："></a>什么是aop：</h4><p>​    aop：是面向切面编程，是对oop面向对象编程的一种补充完善。<br>​    日志，执行效率监测功能相对于付款核心功能，是辅助性的功能，把这些功能称为切面。<br>​    在代理层面，切面就是一个独立存在的类。切面类中的方法称为通知方法。</p>
+<h1 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h1><h4 id="什么是aop："><a href="#什么是aop：" class="headerlink" title="什么是aop："></a>什么是aop：</h4><p>​    aop：是面向切面编程，是对oop面向对象编程的一种补充完善。<br>​    日志，执行效率监测功能相对于付款核心功能，是辅助性的功能，把这些功能称为切面。<br>​    在代理层面，切面就是一个独立存在的类。切面类中的方法称为通知方法。</p>
 <h4 id="aop能干什么："><a href="#aop能干什么：" class="headerlink" title="aop能干什么："></a>aop能干什么：</h4><p>​    做统一事务管理；做统一日志管理；统一异常处理</p>
 <h4 id="aop怎么实现"><a href="#aop怎么实现" class="headerlink" title="aop怎么实现:"></a>aop怎么实现:</h4><p>​    <strong>动态代理</strong>。</p>
 <h4 id="aop中的几个概念："><a href="#aop中的几个概念：" class="headerlink" title="aop中的几个概念："></a>aop中的几个概念：</h4><p>​    aspect：切面，是一个类，类中是非核心的辅助功能代码实现。<br>​    advice：通知，是aspect类中的方法。分为前置通知，返回通知，最终通知，异常通知<br>​    weave:织入，通过动态代理模把通知方法式插入到。<br>​    joinpoint：连接点，是一个方法，其实是核心业务方法。<br>​    target:目标对象，连接点方法所在的对象。</p>
@@ -469,12 +470,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/26/hello-world/" rel="prev" title="Hello World">
-      <i class="fa fa-chevron-left"></i> Hello World
+    <a href="/2020/07/31/Spring%E5%9F%BA%E7%A1%80/" rel="prev" title="Spring基础">
+      <i class="fa fa-chevron-left"></i> Spring基础
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/07/26/%E7%AC%AC%E4%B8%80%E7%AF%87blog/" rel="next" title="第一篇blog">
-      第一篇blog <i class="fa fa-chevron-right"></i>
+    <a href="/2020/08/01/SpringMVC/" rel="next" title="SpringMVC">
+      SpringMVC <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
