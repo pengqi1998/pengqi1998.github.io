@@ -22,14 +22,17 @@
     var CONFIG = {"hostname":"pengqi1998.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="Sping之iocspring是一套容器组件，用来管理项目中的bean对象(MVC-DAO四层对象)。">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Spring基础">
 <meta property="og:url" content="https://pengqi1998.github.io/2020/07/31/Spring%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="鹏鹏的博客">
+<meta property="og:description" content="Sping之iocspring是一套容器组件，用来管理项目中的bean对象(MVC-DAO四层对象)。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-31T14:07:00.337Z">
-<meta property="article:modified_time" content="2020-08-02T07:45:24.333Z">
+<meta property="article:published_time" content="2020-07-31T14:07:00.000Z">
+<meta property="article:modified_time" content="2020-08-02T07:56:02.747Z">
 <meta property="article:author" content="鹏">
+<meta property="article:tag" content="-学习分享 -框架 -Spring">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://pengqi1998.github.io/2020/07/31/Spring%E5%9F%BA%E7%A1%80/">
@@ -195,7 +198,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -207,6 +210,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Sping之ioc"><span class="nav-number">1.</span> <span class="nav-text">Sping之ioc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-spring作用："><span class="nav-number">1.1.</span> <span class="nav-text">1.spring作用：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要进行bean对象的管理？"><span class="nav-number">1.1.1.</span> <span class="nav-text">为什么要进行bean对象的管理？</span></a></li></ol></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -235,7 +239,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -323,8 +327,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-02 15:45:24" itemprop="dateModified" datetime="2020-08-02T15:45:24+08:00">2020-08-02</time>
+                <time title="修改时间：2020-08-02 15:56:02" itemprop="dateModified" datetime="2020-08-02T15:56:02+08:00">2020-08-02</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">知识整合</span></a>
+                </span>
+            </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -344,7 +357,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="Sping之ioc"><a href="#Sping之ioc" class="headerlink" title="Sping之ioc"></a>Sping之ioc</h1><p>spring是一套容器组件，用来管理项目中的bean对象(MVC-DAO四层对象)。</p>
+<a id="more"></a>
+<p><strong>需要掌握的spring技术范畴：</strong><br>core:ioc container-resources-aop<br>test:TestContext框架,与junit的整合<br>mvc:springMVC<br>data:tranaction<br>intergration:remote，schedule，cache</p>
+<h2 id="1-spring作用："><a href="#1-spring作用：" class="headerlink" title="1.spring作用："></a>1.spring作用：</h2><p>spring是一套容器组件，用来管理项目中的bean对象(MVC-DAO四层对象)。</p>
+<h3 id="为什么要进行bean对象的管理？"><a href="#为什么要进行bean对象的管理？" class="headerlink" title="为什么要进行bean对象的管理？"></a>为什么要进行bean对象的管理？</h3><p>解决层与层之间耦合问题，层与层之间只依赖于抽象接口，不依赖于具体，下层变动，上层不动。<br>MVC-dao每层都加了接口，都是为了代码的扩展性。<br>要把具体的实现类的new的过程由我们自身来new，交给第三方的组件来new，把new出来的对象保存起来。在程序运行期间动态的给成员变量赋值。</p>
+<p><em>xml中使用方法</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">       xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">       xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--init-method可指定在加载xml时执行的方法名，一般为初始方法，可加自己的逻辑。destroy-method指定销毁时执行的方法。这个不一定有用，因为一般结束时都是直接暴力终止，代码已经停止运行</span><br><span class="line">    lazyinit 延迟加载，getbean时才实例化对象，也适用于单例--&gt;</span><br><span class="line">    &lt;bean id&#x3D;&quot;abc&quot; class&#x3D;&quot;com.pq.controller.OneServlet&quot; init-method&#x3D;&quot;init&quot; destroy-method&#x3D;&quot;hello&quot; lazy-init&#x3D;&quot;true&quot;&gt;&lt;&#x2F;bean&gt;</span><br><span class="line">    &lt;!--可导入另一个xml文件 &lt;import resource&#x3D;&quot;路径&quot;&gt;&lt;&#x2F;import&gt;--&gt;</span><br><span class="line">    &lt;!--这种可称为用构造函数实例化bean</span><br><span class="line">    scope&#x3D;&quot;singleton&quot;为默认值，即在加载xml时创造实例，text中getbean两次，然后进行比较（&#x3D;&#x3D;），值为true。即指向同一地址</span><br><span class="line">    在单例模式时使用。可改成scope&#x3D;&quot;prototype&quot;，在获取原型时使用。在text中加载xml时不会创造实例，只有在getbean时才会创建实例</span><br><span class="line">    在text中getbean两次，进行比较结果为false，即地址不同，相当于重新初始化了一次，应用场景不多--&gt;</span><br><span class="line">    &lt;bean id&#x3D;&quot;bbc&quot; class&#x3D;&quot;com.pq.service.OneServiceImpl&quot; scope&#x3D;&quot;singleton&quot;&gt;&lt;&#x2F;bean&gt;</span><br><span class="line">    &lt;!--静态工厂写法，factory-method获取方法的返回值放入bean，text接收时，接收到返回值为cat，可以用cat接收，也可用animal，animal好像更能解耦合</span><br><span class="line">    当class指向静态工厂时，空厂里可进行对对象的复杂逻辑操作，并返回给你</span><br><span class="line">    1.如果不写factory-method，则text时写AnimalFac.class，可进行常规化方法调用，但无法调用静态方法，接收类型也是AnimalFac</span><br><span class="line">    2.如果写了factory-method，则text时写AnimalFac.class，会报错，盲猜是因为bean里面放的是cat对象，AnimalFac无法接收</span><br><span class="line">    3.如果写了factory-method，则text时写animal,可正常运行，但下次正常使用bird bean时会报错说重复实例bean了，工厂理想状态是一个工厂生产一样物品</span><br><span class="line">    4.**********************，********写cat，可正常运行，下次也可正常使用bird bean，但这样就失去了工厂的意义--&gt;</span><br><span class="line">    &lt;bean id&#x3D;&quot;aaa&quot; class&#x3D;&quot;com.pq.entity.AnimalFac&quot; factory-method&#x3D;&quot;creatcat&quot;&gt;&lt;&#x2F;bean&gt;</span><br><span class="line">    &lt;!--&lt;bean id&#x3D;&quot;bbb&quot; class&#x3D;&quot;com.pq.entity.AnimalFac&quot; factory-method&#x3D;&quot;creatbird&quot;&gt;&lt;&#x2F;bean&gt;--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--实例工厂写法</span><br><span class="line">    就是类似与静态工厂的写法，两行可合作一行当成静态看，但工厂方法非static，感觉和静态工厂差不多，不如静态简单</span><br><span class="line">    就是工厂无法直接调用方法，所以先把工厂bean出来（实例化一下），然后下一个factory-bean指向实例化的工厂id，</span><br><span class="line">    然后factory-method指向实例化工厂的方法。类似于new个对象再调方法--&gt;</span><br><span class="line">    &lt;bean id&#x3D;&quot;ccc&quot; class&#x3D;&quot;com.pq.entity.SqlSessionFactoryBean&quot;&gt;&lt;&#x2F;bean&gt;</span><br><span class="line">    &lt;bean id&#x3D;&quot;ddd&quot; factory-bean&#x3D;&quot;ccc&quot; factory-method&#x3D;&quot;createFactory&quot;&gt;&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;!--di注入</span><br><span class="line">    set注入，实体类不允许出现new 所以对想创建的对象进行依赖关联，然后在ref中指向该对象的实例化，set注入依赖于此次bean的set方法，set必须有--&gt;</span><br><span class="line">    &lt;bean id&#x3D;&quot;eee&quot; class&#x3D;&quot;com.pq.entity.Ddddd&quot;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;ones&quot; ref&#x3D;&quot;abc&quot;&gt;&lt;&#x2F;property&gt;</span><br><span class="line">    &lt;&#x2F;bean&gt;</span><br><span class="line">    &lt;!--构造器注入</span><br><span class="line">    value和ref一组。构造器注入即根据有参构造来进行注入。当传的参数为简单类型时，指string，int啥的，后面跟value，直接給值注入</span><br><span class="line">    当参数为对象时，后跟ref，指向此参数对象的bean的id，让他构造完再给你注入</span><br><span class="line">    根据参数类型可写name，根据参数的名字去匹配</span><br><span class="line">    type，根据参数的类型去匹配。写法为type&#x3D;com.pq.entity.Ddddd，type&#x3D;java.util.string</span><br><span class="line">    index,根据参数的序号进行匹配，从0开始，即index&#x3D;0，index&#x3D;1--&gt;</span><br><span class="line">    &lt;bean id&#x3D;&quot;fff&quot; class&#x3D;&quot;com.pq.entity.Rrrrr&quot;&gt;</span><br><span class="line">        &lt;constructor-arg name&#x3D;&quot;str&quot; value&#x3D;&quot;qwe&quot;&gt;&lt;&#x2F;constructor-arg&gt;</span><br><span class="line">        &lt;constructor-arg name&#x3D;&quot;ddd&quot; ref&#x3D;&quot;eee&quot;&gt;&lt;&#x2F;constructor-arg&gt;</span><br><span class="line">    &lt;&#x2F;bean&gt;</span><br><span class="line">    &lt;!--内部bean注入,基于set，一定要有set方法,旨在只用一次的注入，可理解为匿名内部类对象，</span><br><span class="line">    当需要注入的东西只有他用的时候，写外面也没啥用，所以可以写在内部。不用写ref指向啥的，直接内部bean完自己用就行</span><br><span class="line">    注意，可进行套娃内部bean--&gt;</span><br><span class="line">    &lt;bean id&#x3D;&quot;ggg&quot; class&#x3D;&quot;com.pq.entity.Ttttt&quot;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;d6&quot;&gt;</span><br><span class="line">            &lt;bean class&#x3D;&quot;com.pq.entity.Ddddd&quot;&gt;</span><br><span class="line">                &lt;!--注解内容可放开，可以正常执行</span><br><span class="line">                &lt;property name&#x3D;&quot;ones&quot;&gt;--&gt;</span><br><span class="line">                    &lt;!--&lt;bean class&#x3D;&quot;com.pq.controller.OneServlet&quot;&gt;&lt;&#x2F;bean&gt;--&gt;</span><br><span class="line">                &lt;!--&lt;&#x2F;property&gt;--&gt;</span><br><span class="line">            &lt;&#x2F;bean&gt;</span><br><span class="line">        &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;&#x2F;bean&gt;</span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -372,6 +391,9 @@
 
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E5%88%86%E4%BA%AB-%E6%A1%86%E6%9E%B6-Spring/" rel="tag"># -学习分享 -框架 -Spring</a>
+          </div>
 
         
 
